@@ -1,3 +1,5 @@
+![Max SMTP - Multiple SMTP Accounts](https://raw.githubusercontent.com/effinstudios/Max-SMTP-WordPress-Plugin/main/assets/images/logo.png)
+
 # Max SMTP - Multiple SMTP Accounts
 
 ## Description
