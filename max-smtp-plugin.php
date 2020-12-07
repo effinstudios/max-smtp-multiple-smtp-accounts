@@ -23,7 +23,6 @@ Copyright 2020 effin studios (email : support@effinstudios.com)
 	require_once( MAXSMTP_PATH . 'includes/menu/page-smtp.php' );
 	require_once( MAXSMTP_PATH . 'includes/menu/page-queue.php' );
 	require_once( MAXSMTP_PATH . 'includes/menu/page-settings.php' );
-	require_once( MAXSMTP_PATH . 'includes/menu/page-debug.php' );
 
 	class Max_SMTP_Plugin {
 		private static $dbver 	= 0.05;
