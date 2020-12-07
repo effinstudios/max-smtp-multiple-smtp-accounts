@@ -164,7 +164,7 @@
 			}
 		}
 
-		public static function maxsmtp_decrypt( $ciphertext ) {
+		private static function maxsmtp_decrypt( $ciphertext ) {
 			$password		= defined( 'NONCE_KEY' ) ? NONCE_KEY : AUTH_KEY;
 			$ciphertext	= hex2bin( $ciphertext );
 			if( !hash_equals( hash_hmac( 'sha256', substr($ciphertext, 48).substr( $ciphertext, 0, 16 ), hash( 'sha256', $password, true ), true ), substr( $ciphertext, 16, 32 ) ) ) return null;
