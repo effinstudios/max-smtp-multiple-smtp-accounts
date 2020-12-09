@@ -14,4 +14,4 @@ Tested and works with popular plugins such as Ninja Forms, WooCommerce, Contact 
 * Easily track your SMTP account usage and monitor failed emails through an easy to use wp-admin interface.
 
 ## Installation
-Extract the zip file and just drop the contents in your wp-content/plugins/ directory then activate the Max SMTP from your wp-admin/plugins page.
+Download and extract the latest **max-smtp-plugin.zip** from our public [release](https://github.com/effinstudios/max-smtp-wp-plugin/releases) and just drop the contents in your wp-content/plugins/ directory then activate the **Max SMTP** from your wp-admin/plugins page.
