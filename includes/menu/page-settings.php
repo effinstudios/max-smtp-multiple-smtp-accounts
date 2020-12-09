@@ -236,7 +236,7 @@ class Max_SMTP_Settings_Page {
 				foreach( [ 'max_smtp_delete_options', 'max_smtp_delete_smtp_table', 'max_smtp_delete_queue_table' ] as $maybeaddkey ){
 					array_key_exists( $maybeaddkey, $options ) ? null : $options[ $maybeaddkey ] = false;
 				}
-				foreach( $_POST as $opt_key => $opt_val ){
+				foreach( $options as $opt_key => $opt_val ){
 					$opt_val_confirmed	= '';
 					switch( $opt_key ){
 						case 'max_smtp_sender_field_from':
