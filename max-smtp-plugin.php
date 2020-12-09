@@ -2,7 +2,7 @@
 /*
 Plugin Name: Max SMTP - Multiple SMTP Accounts
 Description: Add multiple SMTP accounts, cycle through multiple SMTP's maximum send limits, and queue failed emails on your WordPress website.
-Version: 1.0.8
+Version: 1.0.9
 Author: effin studios
 Author URI: http://effinstudios.com
 License: GPLv2 or later
