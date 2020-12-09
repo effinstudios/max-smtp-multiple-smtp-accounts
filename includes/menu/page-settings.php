@@ -254,7 +254,7 @@ class Max_SMTP_Settings_Page {
 						case 'max_smtp_delete_options':
 						case 'max_smtp_delete_smtp_table':
 						case 'max_smtp_delete_queue_table':
-							$opt_val_confirmed = $opt_val === "true" ? "true" : false;
+							$opt_val_confirmed = $opt_val === "true" ? "true" : "false";
 							break;
 					}
 					if( !empty( $opt_val_confirmed ) ){
