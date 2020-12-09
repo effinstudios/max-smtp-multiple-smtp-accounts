@@ -103,17 +103,9 @@ class Max_SMTP_Accounts_Page {
 				$dbdata	= $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'maxsmtp_smtps WHERE id = ' . $this_id, ARRAY_A );
 				empty( $dbdata[0] ) ? null : $input = $dbdata[0];
 			} else if( isset( $_POST ) && is_array( $_POST ) ){
-				$input['smtp_name']			= esc_attr( $_POST['smtp_name'] );
-				$input['smtp_host']			= esc_attr( $_POST['smtp_host'] );
-				$input['smtp_port']			= esc_attr( $_POST['smtp_port'] );
-				$input['smtp_secure']			= esc_attr( $_POST['smtp_secure'] );
-				$input['smtp_auth']			= esc_attr( $_POST['smtp_auth'] );
-				$input['smtp_autotls']		= esc_attr( $_POST['smtp_autotls'] );
-				$input['smtp_user']			= esc_attr( $_POST['smtp_user'] );
-				$input['smtp_limit_day']		= esc_attr( $_POST['smtp_limit_day'] );
-				$input['smtp_limit_hour']		= esc_attr( $_POST['smtp_limit_hour'] );
-				$input['smtp_limit_second']	= esc_attr( $_POST['smtp_limit_second'] );
-				$input['id']				= esc_attr( $_POST['id'] );
+				foreach( [ 'smtp_name', 'smtp_host', 'smtp_port', 'smtp_secure', 'smtp_auth', 'smtp_autotls', 'smtp_user', 'smtp_limit_day', 'smtp_limit_hour', 'smtp_limit_second', 'id' ] as $input_key ){
+					isset( $_POST[ $input_key ] ) ? $input[ $input_key ] = esc_attr( $_POST[ $input_key ] ) : null;
+				}
 			}
 		}
 
