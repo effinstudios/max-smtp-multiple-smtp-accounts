@@ -11,6 +11,18 @@
 		public static function maxsmtp_mail_init_actions(){
 			add_filter( 'wp_mail', [ __CLASS__, 'maxsmtp_set_mail_cache' ] );
 			add_action( 'phpmailer_init', [ __CLASS__, 'maxsmtp_set_smtp_phpmailer' ] );
+			add_action( 'init', [ __CLASS__, 'maxsmtp_mail_view_page' ] );
+		}
+
+		public static function maxsmtp_mail_view_page(){
+			$url_path = trim( parse_url( add_query_arg(array() ), PHP_URL_PATH ), '/' );
+			if( $url_path === 'MAXSMTP/mail-view' ){
+				$load = file_exists( MAXSMTP_PATH . 'includes/mail-view.php' );
+				if( $load ) {
+					include_once( MAXSMTP_PATH . 'includes/mail-view.php' );
+					exit();
+				}
+			}
 		}
 
 		public static function maxsmtp_set_mail_cache( $atts ){
@@ -32,6 +44,8 @@
 				if( update_option( 'max_smtp_set_mail_account', $acct_arr[0] ) ){
 					return $acct_arr[0];
 				}
+			} else {
+				update_option( 'max_smtp_set_mail_account', [] )
 			}
 			return false;
 		}
@@ -113,6 +127,8 @@
 				$error_pass		= '';
 				$mail_error_data      = [];
 
+				$smtp_setting		= apply_filters( 'maxsmtp_filter_smtp_settings', $smtp_setting );
+
 				try {
 					$phpmailer->From		= get_option( 'max_smtp_sender_field_email', get_bloginfo( 'admin_email' ) );
 					$phpmailer->FromName		= get_option( 'max_smtp_sender_field_from', get_bloginfo( 'name' ) );
@@ -150,8 +166,15 @@
 										'mail_failed'		=> current_time( 'mysql' ),
 										'mail_status'		=> 'Pending',
 										'mail_error'		=> $mail_error_data['phpmailer_exception_code'],
+										'mail_body'		=> $phpmailer->Body,
 									];
-						$wpdb->insert( $wpdb->prefix . 'maxsmtp_queue', $email_queue );
+
+						$email_queue	= apply_filters( 'maxsmtp_filter_email_queue_before_save', $email_queue );
+
+						if( ! empty( $email_queue ) ){
+							$wpdb->insert( $wpdb->prefix . 'maxsmtp_queue', $email_queue );
+						}
+
 						$email_queue	= '';
 					}
 
