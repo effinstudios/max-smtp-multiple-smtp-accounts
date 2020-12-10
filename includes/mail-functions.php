@@ -34,7 +34,7 @@
 					return $acct_arr[0];
 				}
 			} else {
-				update_option( 'max_smtp_set_mail_account', [] )
+				update_option( 'max_smtp_set_mail_account', [] );
 			}
 			return false;
 		}
