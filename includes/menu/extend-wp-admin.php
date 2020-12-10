@@ -26,7 +26,6 @@ class Max_SMTP_Queue_Page_Ex extends WP_List_Table {
 		$title = '<strong>' . esc_html( $item['mail_to'] ) . '</strong>';
 		$actions = [
 			'delete' => sprintf( '<a href="?page=%s&action=%s&id=%s&_wpnonce=%s">' . __( 'Delete', 'max-smtp' ) . '</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $action_nonce ),
-			//'view' => sprintf( '<a href="?page=%s&action=%s&id=%s&_wpnonce=%s">' . __( 'View', 'max-smtp' ) . '</a>', esc_attr( $_REQUEST['page'] ), 'view', absint( $item['id'] ), $action_nonce ),
 			'send' => sprintf( '<a href="?page=%s&action=%s&id=%s&_wpnonce=%s">' . __( 'Send', 'max-smtp' ) . '</a>', esc_attr( $_REQUEST['page'] ), 'send', absint( $item['id'] ), $action_nonce ),
 		];
 		return $title . $this->row_actions( $actions );
