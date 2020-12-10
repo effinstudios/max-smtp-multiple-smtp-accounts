@@ -257,6 +257,7 @@ class Max_SMTP_Settings_Page {
 			}
 			Max_SMTP_Plugin::maxsmtp_clear_cron();
 			Max_SMTP_Plugin::maxsmtp_update_queue_send_limits();
+			Max_SMTP_Mail_Functions::maxsmtp_set_smtp_option();
 			Max_SMTP_Plugin::maxsmtp_admin_notification( __( 'Settings saved.', 'max-smtp' ), 'success' );
 			wp_redirect( esc_url_raw( add_query_arg( [] ) ) );
 		}
