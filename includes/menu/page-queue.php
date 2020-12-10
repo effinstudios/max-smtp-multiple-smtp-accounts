@@ -47,7 +47,7 @@ class Max_SMTP_Queue_Page {
 			<div class="wrap max-smtp max-smtp-queue">
 				<h1><img class="max-smtp-logo" src="<?php echo esc_url( MAXSMTP_URL . '/assets/images/logo.png' ); ?>" alt="Max SMTP"> <?php _e( 'Email Queue', 'max-smtp' ); ?></h1>
 				<?php if( $status ): ?>
-					<div id="message" class="error notice notice-warning">
+					<div id="message" class="error notice notice-warning is-dismissible">
 						<p><?php _e( 'Max SMTP: Sending emails via SMTP is currently paused.', 'max-smtp' ); ?> <?php esc_html_e( get_option( 'max_smtp_pause_message' ) ); ?></p>
 					</div>
 				<?php endif; ?>

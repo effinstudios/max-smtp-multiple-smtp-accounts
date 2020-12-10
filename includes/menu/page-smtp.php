@@ -318,25 +318,39 @@ class Max_SMTP_Accounts_Page {
 			<div class="wrap max-smtp max-smtp-accounts">
 				<h1><img class="max-smtp-logo" src="<?php echo esc_url( MAXSMTP_URL . '/assets/images/logo.png' ); ?>" alt="Max SMTP"> <?php _e( 'SMTP Accounts', 'max-smtp' ); ?></h1>
 				<?php if( $status ): ?>
-					<div id="message" class="error notice notice-warning">
+					<div id="message" class="error notice notice-warning is-dismissible">
 						<p><?php _e( 'Max SMTP: Sending emails via SMTP is currently paused.', 'max-smtp' ); ?> <?php esc_html_e( get_option( 'max_smtp_pause_message' ) ); ?></p>
 					</div>
 				<?php endif; ?>
 				<div id="max-smtp-menu">
 					<?php if( isset( $_GET['action'] ) && ( $_GET['action'] === 'edit' || $_GET['action'] === 'add' ) ): ?>
-					<form method="post" >
-						<?php
-							settings_fields( 'max_smtp_account' );
-							do_settings_sections( 'max_smtp_account' );
-						?>
-						<input type="hidden" name="_sub_nounce" value="<?php echo wp_create_nonce( 'max_smtp_submit_nounce' ); ?>">
-						<?php if( isset( $_GET['action'] ) && ( $_GET['action'] == 'edit' ) ){ ?>
-							<input type="submit" name="editsmtp" class="button button-primary" value="Edit SMTP">
-						<?php } else { ?>
-							<input type="submit" name="addsmtp" class="button button-primary" value="Add SMTP">
-						<?php } ?>
-						<a href="<?php echo esc_url_raw( remove_query_arg( ['id','action','_wpnonce'] ) ); ?>" class="button">Close</a>
-					</form>
+					<div class="max-smtp-page-wrapper">
+						<div class="max-smtp-page-content">
+							<form method="post" >
+								<?php
+									settings_fields( 'max_smtp_account' );
+									do_settings_sections( 'max_smtp_account' );
+								?>
+								<input type="hidden" name="_sub_nounce" value="<?php echo wp_create_nonce( 'max_smtp_submit_nounce' ); ?>">
+								<?php if( isset( $_GET['action'] ) && ( $_GET['action'] == 'edit' ) ){ ?>
+									<input type="submit" name="editsmtp" class="button button-primary" value="Edit SMTP">
+								<?php } else { ?>
+									<input type="submit" name="addsmtp" class="button button-primary" value="Add SMTP">
+								<?php } ?>
+								<a href="<?php echo esc_url_raw( remove_query_arg( ['id','action','_wpnonce'] ) ); ?>" class="button">Close</a>
+							</form>
+						</div>
+						<div class="max-smtp-page-sidebar">
+							<div class="max-smtp-page-sidebar-item effin-studios">
+								<img src="<?php echo esc_url( MAXSMTP_URL . '/assets/images/effinstudios.png' ); ?>" width="200" height="200" alt="Effin Studios">
+							</div>
+							<div class="max-smtp-page-sidebar-item support-us">
+								<h3>Love what we are doing?</h3>
+								<p>Help us keep developing more great stuff by buying us a drink or three, we truly appreciate every bit of your support!</p>
+								<a class="button" href="https://ko-fi.com/effinstudios" target="_blank" rel="nofollow">Buy us coffee</a>
+							</div>
+						</div>
+					</div>
 					<?php endif; ?>
 					<div id="post-body" class="metabox-holder columns-2">
 						<div id="post-body-content">
