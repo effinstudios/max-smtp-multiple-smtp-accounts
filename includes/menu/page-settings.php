@@ -288,16 +288,6 @@ class Max_SMTP_Settings_Page {
 							?>
 						</form>
 					</div>
-					<div class="max-smtp-page-sidebar">
-						<div class="max-smtp-page-sidebar-item effin-studios">
-							<img src="<?php echo esc_url( MAXSMTP_URL . '/assets/images/effinstudios.png' ); ?>" width="200" height="200" alt="Effin Studios">
-						</div>
-						<div class="max-smtp-page-sidebar-item support-us">
-							<h3>Love what we are doing?</h3>
-							<p>Help us keep developing more great stuff by buying us a drink or three, we truly appreciate every bit of your support!</p>
-							<a class="button" href="https://ko-fi.com/effinstudios" target="_blank" rel="nofollow">Buy us coffee</a>
-						</div>
-					</div>
 				</div>
 			</div>
 		<?php

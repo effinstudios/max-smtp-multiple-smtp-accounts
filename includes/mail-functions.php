@@ -11,7 +11,17 @@
 		public static function maxsmtp_mail_init_actions(){
 			add_filter( 'wp_mail', [ __CLASS__, 'maxsmtp_set_mail_cache' ] );
 			add_action( 'phpmailer_init', [ __CLASS__, 'maxsmtp_set_smtp_phpmailer' ] );
-			add_action( 'init', [ __CLASS__, 'maxsmtp_mail_view_page' ] );
+		}
+
+		public static function maxsmtp_mail_view_page(){
+			$url_path = trim( parse_url( add_query_arg(array() ), PHP_URL_PATH ), '/' );
+			if( $url_path === 'MAXSMTP/mail-view' ){
+				$load = file_exists( MAXSMTP_PATH . 'includes/mail-view.php' );
+				if( $load ) {
+					include_once( MAXSMTP_PATH . 'includes/mail-view.php' );
+					exit();
+				}
+			}
 		}
 
 		public static function maxsmtp_set_mail_cache( $atts ){
@@ -42,7 +52,7 @@
 		public static function maxsmtp_set_smtp_phpmailer( $phpmailer ){
 			global $wpdb;
 			global $phpmailer;
-			$maybelimit	= '';
+			$maybelimit	= '(No SMTP acccount set)';
 			$pause_status	= false;
 
 			Max_SMTP_Retry_Phpmailer:

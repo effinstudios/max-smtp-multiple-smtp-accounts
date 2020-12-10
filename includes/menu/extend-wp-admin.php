@@ -467,6 +467,11 @@ class Max_SMTP_Accounts_Page_Ex extends WP_List_Table {
 						$queue_limit = get_option( 'max_smtp_queue_limit' );
 						update_option( 'max_smtp_queue_limit', $queue_limit + $data['smtp_limit_second'] );
 					}
+					$smtp_setting	= get_option( 'max_smtp_set_mail_account' );
+					if( empty( $smtp_setting ) ){
+						MAXSMTP\Max_SMTP_Mail_Functions::maxsmtp_set_smtp_option();
+						update_option( 'max_smtp_pause_status', 0 );
+					}
 					MAXSMTP\Max_SMTP_Plugin::maxsmtp_admin_notification( __( 'SMTP account saved.', 'max-smtp' ), 'success' );
 				} else {
 					MAXSMTP\Max_SMTP_Plugin::maxsmtp_admin_notification( __( 'SMTP account was not saved, please try again.', 'max-smtp' ), 'error' );
