@@ -230,36 +230,29 @@ class Max_SMTP_Settings_Page {
 			Max_SMTP_Plugin::maxsmtp_admin_notification( 'Somthing terrible happend... Your settings was not saved, please try again.', 'error' );
 			wp_redirect( esc_url_raw( add_query_arg( [] ) ) );
 		} else {
-			$option_fields	= isset( $_POST ) && !empty( $_POST ) ? $_POST : null;
-			if( isset( $_POST ) && !empty( $_POST ) && is_array( $_POST ) ){
-				$options	= $_POST;
-				foreach( [ 'max_smtp_delete_options', 'max_smtp_delete_smtp_table', 'max_smtp_delete_queue_table' ] as $maybeaddkey ){
-					array_key_exists( $maybeaddkey, $options ) ? null : $options[ $maybeaddkey ] = false;
-				}
-				foreach( $options as $opt_key => $opt_val ){
-					$opt_val_confirmed	= '';
+			if( isset( $_POST['max_smtp_cron_field_interval'] ) && !empty( $_POST['max_smtp_cron_field_interval'] ) ){
+				foreach( [ 'max_smtp_sender_field_from', 'max_smtp_sender_field_email', 'max_smtp_cron_field_interval', 'max_smtp_cron_field_reset_time', 'max_smtp_delete_options', 'max_smtp_delete_smtp_table', 'max_smtp_delete_queue_table' ] as $opt_key ){
+					$opt_val	= '';
 					switch( $opt_key ){
 						case 'max_smtp_sender_field_from':
-							$opt_val_confirmed = sanitize_text_field( $opt_val );
+							$opt_val	= isset( $_POST[ $opt_key ] ) ? sanitize_text_field( $_POST[ $opt_key ] ) : null;
 							break;
 						case 'max_smtp_sender_field_email':
-							$opt_val_confirmed = sanitize_email( $opt_val );
+							$opt_val	= isset( $_POST[ $opt_key ] ) ? sanitize_email( $_POST[ $opt_key ] ) : null;
 							break;
 						case 'max_smtp_cron_field_interval':
-							$opt_val_confirmed = in_array( $opt_val, [ 'maxsmtp_10', 'maxsmtp_20', 'maxsmtp_30', 'maxsmtp_40', 'maxsmtp_50', 'maxsmtp_60', ] ) ? $opt_val : null;
+							$opt_val	= isset( $_POST[ $opt_key ] ) && in_array( sanitize_text_field( $_POST[ $opt_key ] ), [ 'maxsmtp_10', 'maxsmtp_20', 'maxsmtp_30', 'maxsmtp_40', 'maxsmtp_50', 'maxsmtp_60', ] ) ? sanitize_text_field( $_POST[ $opt_key ] ) : 'maxsmtp_60';
 							break;
 						case 'max_smtp_cron_field_reset_time':
-							$opt_val_confirmed = preg_match( '/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/', $opt_val ) ? $opt_val : null;;
+							$opt_val	= isset( $_POST[ $opt_key ] ) && preg_match( '/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/', $opt_val ) ? sanitize_text_field( $_POST[ $opt_key ] ) : null;;
 							break;
 						case 'max_smtp_delete_options':
 						case 'max_smtp_delete_smtp_table':
 						case 'max_smtp_delete_queue_table':
-							$opt_val_confirmed = $opt_val === "true" ? "true" : "false";
+							$opt_val	= isset( $_POST[ $opt_key ] ) && sanitize_text_field( $_POST[ $opt_key ] ) === "true" ? "true" : "false";
 							break;
 					}
-					if( !empty( $opt_val_confirmed ) ){
-						update_option( $opt_key, $opt_val_confirmed );
-					}
+					update_option( $opt_key, $opt_val );
 				}
 			}
 			Max_SMTP_Plugin::maxsmtp_clear_cron();
@@ -276,15 +269,29 @@ class Max_SMTP_Settings_Page {
 		?>
 			<div class="wrap max-smtp max-smtp-settings">
 				<h1><img class="max-smtp-logo" src="<?php echo esc_url( MAXSMTP_URL . '/assets/images/logo.png' ); ?>" alt="Max SMTP"> <?php _e( 'Settings', 'max-smtp' ); ?></h1>
-				<form method="post">
-					<input type="hidden" name="updated" value="true" />
-					<?php wp_nonce_field( 'max_smtp_update', 'max_smtp_update_form' ); ?>
-					<?php
-						settings_fields( 'max_smtp_fields' );
-						do_settings_sections( 'max_smtp_fields' );
-						submit_button();
-					?>
-				</form>
+				<div class="max-smtp-page-wrapper">
+					<div class="max-smtp-page-content">
+						<form method="post">
+							<input type="hidden" name="updated" value="true" />
+							<?php wp_nonce_field( 'max_smtp_update', 'max_smtp_update_form' ); ?>
+							<?php
+								settings_fields( 'max_smtp_fields' );
+								do_settings_sections( 'max_smtp_fields' );
+								submit_button();
+							?>
+						</form>
+					</div>
+					<div class="max-smtp-page-sidebar">
+						<div class="max-smtp-page-sidebar-item effin-studios">
+							<img src="<?php echo esc_url( MAXSMTP_URL . '/assets/images/effinstudios.png' ); ?>" width="200" height="200" alt="Effin Studios">
+						</div>
+						<div class="max-smtp-page-sidebar-item support-us">
+							<h3>Love what we are doing?</h3>
+							<p>Help us keep developing more great stuff by buying us a drink or three, we truly appreciate every bit of your support!</p>
+							<a class="button" href="https://ko-fi.com/effinstudios" target="_blank" rel="nofollow">Buy us coffee</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		<?php
 	}
