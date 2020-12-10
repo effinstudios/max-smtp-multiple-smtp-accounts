@@ -14,17 +14,6 @@
 			add_action( 'init', [ __CLASS__, 'maxsmtp_mail_view_page' ] );
 		}
 
-		public static function maxsmtp_mail_view_page(){
-			$url_path = trim( parse_url( add_query_arg(array() ), PHP_URL_PATH ), '/' );
-			if( $url_path === 'MAXSMTP/mail-view' ){
-				$load = file_exists( MAXSMTP_PATH . 'includes/mail-view.php' );
-				if( $load ) {
-					include_once( MAXSMTP_PATH . 'includes/mail-view.php' );
-					exit();
-				}
-			}
-		}
-
 		public static function maxsmtp_set_mail_cache( $atts ){
 			wp_cache_set( 'max_smtp_mail_cache', $atts, 'max_smtp_cache', 600 );
 			return $atts;
