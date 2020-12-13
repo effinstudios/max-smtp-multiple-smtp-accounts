@@ -1,9 +1,9 @@
-![Max SMTP - Multiple SMTP Accounts](https://raw.githubusercontent.com/effinstudios/Max-SMTP-WordPress-Plugin/main/assets/images/logo.png)
+![Max SMTP - Multiple SMTP Accounts](https://raw.githubusercontent.com/effinstudios/max-smtp-multiple-smtp-accounts/main/assets/images/logo.png)
 
 # Max SMTP - Multiple SMTP Accounts
 
 ## Description
-Add multiple SMTP accounts, cycle through multiple SMTP's maximum send limits, and queue failed emails on your WordPress blog/website.
+Use multiple SMTP email accounts, cycle through your SMTP's maximum send limits, and queue failed emails from your WordPress blog/website.
 Tested and works with popular plugins such as Ninja Forms, WooCommerce, Contact Form 7, Gravity Forms, ...
 
 ## Features
