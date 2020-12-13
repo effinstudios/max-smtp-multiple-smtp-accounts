@@ -11,6 +11,7 @@
 		public static function maxsmtp_mail_init_actions(){
 			add_filter( 'wp_mail', [ __CLASS__, 'maxsmtp_set_mail_cache' ] );
 			add_action( 'phpmailer_init', [ __CLASS__, 'maxsmtp_set_smtp_phpmailer' ] );
+			add_action( 'init', [ __CLASS__, 'maxsmtp_mail_view_page' ] );
 		}
 
 		public static function maxsmtp_mail_view_page(){

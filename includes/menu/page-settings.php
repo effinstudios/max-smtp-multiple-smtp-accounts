@@ -31,6 +31,29 @@ class Max_SMTP_Settings_Page {
 		add_settings_section( 'uninstall_section', __( 'Uninstall Options', 'max-smtp' ), [ __CLASS__, 'maxsmtp_section_callback' ], 'max_smtp_fields' );
 	}
 
+	public static function maxsmtp_do_settings_sections( $page ) {
+		global $wp_settings_sections, $wp_settings_fields;
+		if ( ! isset( $wp_settings_sections[ $page ] ) ) {
+			return;
+		}
+		foreach ( (array) $wp_settings_sections[ $page ] as $section ) {
+			echo "<section class=\"max-smtp-tab {$section['id']} \">\n";
+			if ( $section['title'] ) {
+				echo "<h2>{$section['title']}</h2>\n";
+			}
+			if ( $section['callback'] ) {
+				call_user_func( $section['callback'], $section );
+			}
+			if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[ $page ] ) || ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
+				continue;
+			}
+			echo '<table class="form-table" role="presentation">';
+			do_settings_fields( $page, $section['id'] );
+			echo '</table>';
+			echo "</section>\n";
+		}
+	}
+
 	public static function maxsmtp_section_callback( $arguments ){
 		switch( $arguments['id'] ){
 			case 'sender_section':
@@ -281,12 +304,22 @@ class Max_SMTP_Settings_Page {
 						<form method="post">
 							<input type="hidden" name="updated" value="true" />
 							<?php wp_nonce_field( 'max_smtp_update', 'max_smtp_update_form' ); ?>
-							<?php
-								settings_fields( 'max_smtp_fields' );
-								do_settings_sections( 'max_smtp_fields' );
-								submit_button();
-							?>
+							<?php settings_fields( 'max_smtp_fields' ); ?>
+							<div class="max-smtp-tab-container">
+								<?php self::maxsmtp_do_settings_sections( 'max_smtp_fields' ); ?>
+							</div>
+							<?php submit_button(); ?>
 						</form>
+					</div>
+					<div class="max-smtp-page-sidebar">
+						<div class="max-smtp-page-sidebar-item effin-studios">
+							<img src="<?php echo esc_url( MAXSMTP_URL . '/assets/images/effinstudios.png' ); ?>" width="200" height="200" alt="Effin Studios">
+						</div>
+						<div class="max-smtp-page-sidebar-item support-us">
+							<h3>Love what we are doing?</h3>
+							<p>Help us keep developing more great stuff by buying us a drink or three, we truly appreciate every bit of your support!</p>
+							<a class="button" href="https://ko-fi.com/effinstudios" target="_blank" rel="nofollow">Buy us coffee</a>
+						</div>
 					</div>
 				</div>
 			</div>
